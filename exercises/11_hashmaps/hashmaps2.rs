@@ -32,6 +32,22 @@ fn fruit_basket(basket: &mut HashMap<Fruit, u32>) {
         // TODO: Insert new fruits if they are not already present in the
         // basket. Note that you are not allowed to put any type of fruit that's
         // already present!
+        //if !basket.contains_key(&fruit) {
+        //    if fruit == Fruit::Mango {
+        //        basket.insert(fruit, 3);
+        //    } else {
+        //        basket.insert(fruit, 1);
+        //    }
+        //}
+        let count = if fruit == Fruit::Mango {
+            3
+        } else {
+            1
+        };
+        basket.entry(fruit).or_insert_with(|| count); // Fruit doesn't implement clone()
+                                                     // so we can't pass it into  the closure
+                                                     // We need to pass the value in the closure
+                                                     // instead
     }
 }
 
