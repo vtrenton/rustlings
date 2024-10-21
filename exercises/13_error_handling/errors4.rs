@@ -10,7 +10,20 @@ struct PositiveNonzeroInteger(u64);
 impl PositiveNonzeroInteger {
     fn new(value: i64) -> Result<Self, CreationError> {
         // TODO: This function shouldn't always return an `Ok`.
-        Ok(Self(value as u64))
+        //if value > 0 {
+        //    Ok(Self(value as u64))
+        //} else if value == 0 {
+        //    Err(CreationError::Zero)
+        //} else {
+        //    Err(CreationError::Negative)
+        //}
+        //
+        //Cargo build errors and ChatGPT <3
+        match value {
+            v if v > 0 => Ok(Self(v as u64)),
+            0 => Err(CreationError::Zero),
+            _ => Err(CreationError::Negative),
+        }
     }
 }
 
