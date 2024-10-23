@@ -7,7 +7,9 @@ fn capitalize_first(input: &str) -> String {
     let mut chars = input.chars();
     match chars.next() {
         None => String::new(),
-        Some(first) => todo!(),
+        Some(first) => { 
+            format!("{}{}", first.to_uppercase(), chars.skip(1).collect())
+        }
     }
 }
 
@@ -15,7 +17,7 @@ fn capitalize_first(input: &str) -> String {
 // Return a vector of strings.
 // ["hello", "world"] -> ["Hello", "World"]
 fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
-    // ???
+    words.iter().map(|x| capitalize_first(x)).collect()
 }
 
 // TODO: Apply the `capitalize_first` function again to a slice of string
