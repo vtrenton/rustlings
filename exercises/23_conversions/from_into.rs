@@ -40,7 +40,7 @@ impl From<&str> for Person {
             return Person::default();
         };
 
-        let name = pvect[0].to_string();
+        let name = pvect[0];
         if name.is_empty() {
             return Person::default();
         };
@@ -51,7 +51,7 @@ impl From<&str> for Person {
         };
 
         Person {
-            name,
+            name: name.into(),
             age
         }
     }
