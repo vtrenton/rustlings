@@ -39,14 +39,20 @@ impl From<&str> for Person {
         if pvect.len() != 2 {
             return Person::default();
         };
+
         let name = pvect[0].to_string();
         if name.is_empty() {
             return Person::default();
-        }
-        let age = pvect[1].parse::<u8>().unwrap_or_else(return Person::default());
+        };
+
+        let age = match pvect[1].parse::<u8>() {
+            Ok(a) => a,
+            Err(_) => return Person::default(),
+        };
+
         Person {
-            name: name,
-            age: age
+            name,
+            age
         }
     }
 }
