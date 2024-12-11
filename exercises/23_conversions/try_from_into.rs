@@ -29,17 +29,15 @@ impl TryFrom<(i16, i16, i16)> for Color {
     type Error = IntoColorError;
 
     fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
-        let rgbvect = [tuple.0, tuple.1, tuple.2];
-        for val in rgbvect {
-            if val < 0 || val > u8::MAX as i16 {
-                return Err(Self::Error::IntConversion);
-            }
-        }
-        Ok(Color {
-            red: tuple.0 as u8,
-            green: tuple.1 as u8,
-            blue: tuple.2 as u8,
-        })
+        let (Ok(red), Ok(green), Ok(blue)) = (
+            u8::try_from(tuple.0),
+            u8::try_from(tuple.1),
+            u8::try_from(tuple.2),
+        ) else {
+            return Err(IntoColorError::IntConversion);
+        };
+
+        Ok(Self { red, green, blue })
     }
 }
 
